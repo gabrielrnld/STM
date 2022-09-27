@@ -1,4 +1,4 @@
-const apiLoginURL = "/api/login";
+const apiLoginURL = "../api/login";
 
 export async function loginUser(credential) {
   const response = await fetch(apiLoginURL, {
