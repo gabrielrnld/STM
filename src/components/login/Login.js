@@ -12,7 +12,6 @@ export default function Login({ setToken }) {
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-
     dispatch(usersLogin({ username, password }));
     setToken(localStorage.getItem("authorization"));
   };
