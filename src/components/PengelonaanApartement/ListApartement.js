@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Row, Col, Button } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Row, Col, Button, Spinner } from "react-bootstrap";
 import DetailApartement from "./DetailApartement";
 import BootstrapTable from "react-bootstrap-table-next";
 import filterFactory, {
@@ -7,48 +7,50 @@ import filterFactory, {
   textFilter,
   selectFilter,
 } from "react-bootstrap-table2-filter";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchApartments } from "../../reducer/apartment-slice";
 
-const varUnits = [
-  {
-    id: 1,
-    unitCode: "10AA",
-    floor: 10,
-    rooms: 2,
-    direction: 0,
-    status: "available",
-    balcony: true,
-    furnished: true,
-    rentPrice: 4000000,
-    rentSchema: "monthly",
-    sellPrice: 500000000,
-  },
-  {
-    id: 2,
-    unitCode: "10AB",
-    floor: 10,
-    rooms: 2,
-    direction: 2,
-    status: "available",
-    balcony: false,
-    furnished: false,
-    rentPrice: 3500000,
-    rentSchema: "monthly",
-    sellPrice: 400000000,
-  },
-  {
-    id: 3,
-    unitCode: "10BA",
-    floor: 10,
-    rooms: 2,
-    direction: 4,
-    status: "sold",
-    balcony: true,
-    furnished: true,
-    rentPrice: 5000000,
-    rentSchema: "monthly",
-    sellPrice: 500000000,
-  },
-];
+// const varUnits = [
+//   {
+//     id: 1,
+//     unitCode: "10AA",
+//     floor: 10,
+//     rooms: 2,
+//     direction: 0,
+//     status: "available",
+//     balcony: true,
+//     furnished: true,
+//     rentPrice: 4000000,
+//     rentSchema: "monthly",
+//     sellPrice: 500000000,
+//   },
+//   {
+//     id: 2,
+//     unitCode: "10AB",
+//     floor: 10,
+//     rooms: 2,
+//     direction: 2,
+//     status: "available",
+//     balcony: false,
+//     furnished: false,
+//     rentPrice: 3500000,
+//     rentSchema: "monthly",
+//     sellPrice: 400000000,
+//   },
+//   {
+//     id: 3,
+//     unitCode: "10BA",
+//     floor: 10,
+//     rooms: 2,
+//     direction: 4,
+//     status: "sold",
+//     balcony: true,
+//     furnished: true,
+//     rentPrice: 5000000,
+//     rentSchema: "monthly",
+//     sellPrice: 500000000,
+//   },
+// ];
 
 const varTransactions = [
   {
@@ -97,11 +99,17 @@ const varResidents = [
 
 export default function ListApartement() {
   const [page, setPage] = useState("list");
-  const [units, setUnits] = useState([...varUnits]);
+  // const [units, setUnits] = useState([...varUnits]);
   const [transactions, setTransactions] = useState([...varTransactions]);
   const [residents, setResidents] = useState([...varResidents]);
 
   const [selected, setSelected] = useState(null);
+
+  const state = useSelector((data) => data.units);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchApartments());
+  }, [dispatch]);
 
   const onSwitchPage = (unit) => {
     const findTransaction = transactions.find((transaction) => {
@@ -177,22 +185,30 @@ export default function ListApartement() {
 
   return (
     <Row>
-      <Col>
-        {page === "list" ? (
-          <BootstrapTable
-            keyField="id"
-            data={units}
-            columns={columns}
-            filter={filterFactory()}
-          />
-        ) : (
-          <DetailApartement
-            switchToList={setPage}
-            selected={selected}
-            setSelected={setSelected}
-          />
-        )}
-      </Col>
+      {state.isloading ? (
+        <Col>
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </Col>
+      ) : (
+        <Col>
+          {page === "list" ? (
+            <BootstrapTable
+              keyField="id"
+              data={state.units}
+              columns={columns}
+              filter={filterFactory()}
+            />
+          ) : (
+            <DetailApartement
+              switchToList={setPage}
+              selected={selected}
+              setSelected={setSelected}
+            />
+          )}
+        </Col>
+      )}
     </Row>
   );
 }

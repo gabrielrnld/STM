@@ -11,6 +11,30 @@ export const transactions = [
     price: 550000000,
     profit: 50000000,
   },
+  {
+    id: 2,
+    unitId: 3,
+    residentId: 1,
+    transactionDate: "",
+    rentStartDate: "",
+    rentEndDate: "",
+    billingDate: "",
+    period: null,
+    price: 550000000,
+    profit: 50000000,
+  },
+  {
+    id: 3,
+    unitId: 3,
+    residentId: 1,
+    transactionDate: "",
+    rentStartDate: "",
+    rentEndDate: "",
+    billingDate: "",
+    period: null,
+    price: 550000000,
+    profit: 50000000,
+  },
 ];
 export const residents = [
   {

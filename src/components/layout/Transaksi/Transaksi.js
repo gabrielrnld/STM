@@ -1,12 +1,6 @@
-import { useDispatch, useSelector } from "react-redux";
-import BootstrapTable from "react-bootstrap-table-next";
-import { useState } from "react";
-import { Col, Row, Table } from "react-bootstrap";
-import { units, residents, transactions } from "./Data";
-import filterFactory, {
-  customFilter,
-  textFilter,
-} from "react-bootstrap-table2-filter";
+import { useEffect, useState } from "react";
+
+import { ListTransaksi } from "./ListTransaksi";
 export function Transaksi(props) {
   // const state = useSelector((storedState) => store.ApartementUnit);
   // const dispatch = useDispatch();
@@ -29,89 +23,23 @@ export function Transaksi(props) {
   //   // trx.resident = residents.find((x) => (x.id = trx.residentId));
   //   return { ...trx, ...unit, ...resident, id };
   // });
+  const [page, setPage] = useState("list");
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("showTable");
+        } else {
+          entry.target.classList.remove("showTable");
+        }
+      });
+    });
+    const hiddenElement = document.querySelectorAll(".fadedTable");
+    hiddenElement.forEach((el) => observer.observe(el));
 
-  const data = transactions.map((trx) => {
-    trx.unit = units.find((x) => (x.id = trx.unitId));
-    trx.resident = residents.find((x) => (x.id = trx.residentId));
-    return trx;
-  });
-
-  const filterFloor = (cell, row) => {
-    return row.unit.floor;
-  };
-
-  const columns = [
-    {
-      dataField: "id",
-      text: "#",
-    },
-    {
-      dataField: "unit.floor",
-      text: "Floor",
-      filter: textFilter(),
-    },
-    {
-      dataField: "unit.unitCode",
-      text: "Unit",
-    },
-    {
-      dataField: "resident.fullname",
-      text: "Resident",
-      filter: textFilter(),
-    },
-    {
-      dataField: "unit.status",
-      text: "Status",
-    },
-    {
-      dataField: "price",
-      text: "Price",
-      formatter: (cell) => {
-        return `IDR ${parseInt(cell).toLocaleString("id")}`;
-      },
-    },
-    {
-      dataField: "profit",
-      text: "Profit",
-      formatter: (cell) => {
-        return `IDR ${parseInt(cell).toLocaleString("id")}`;
-      },
-    },
-
-    {
-      dataField: "transactionDate",
-      text: "Transaction Date",
-      sort: true,
-    },
-    {
-      dataField: "unit.rentSchema",
-      text: "Rental Scheme",
-    },
-    {
-      dataField: "data",
-      text: "Start / End Date",
-      formatter: (cell, row) => {
-        return `${row.rentStartDate} / ${row.rentEndDate}`;
-      },
-    },
-    {
-      dataField: "period",
-      text: "Period",
-      formatter: (cell) => {
-        return `${cell} months`;
-      },
-    },
-    {
-      dataField: "billingDate",
-      text: "Billing Date",
-    },
-  ];
-  return (
-    <BootstrapTable
-      keyField="id"
-      data={data}
-      columns={columns}
-      filter={filterFactory()}
-    />
-  );
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+  return page === "list" ? <ListTransaksi setPage={setPage} /> : <></>;
 }
