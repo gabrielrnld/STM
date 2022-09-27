@@ -1,24 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import { Container } from 'react-bootstrap';
+import { Provider } from 'react-redux';
+import { FormManageLaporan } from './components/apartment/FormManageLaporan';
+import { appStore } from './reducer/store';
+// import { FormManangeRedux } from './components/apartment/FormManageRedux';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <Container fluid>
+    <Provider store = {appStore}>
+    <FormManageLaporan />
+    </Provider>
+   </Container>
   );
 }
 
