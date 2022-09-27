@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 export default function DetailApartement(props) {
   const { selected, switchToList, setSelected } = props;
 
+  console.log(selected);
   const handleToListPage = () => {
     switchToList("list");
     setSelected(null);

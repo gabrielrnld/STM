@@ -12,7 +12,7 @@ export default function Login({ setToken }) {
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(username, " ", password);
+
     dispatch(usersLogin({ username, password }));
     setToken(localStorage.getItem("authorization"));
   };
@@ -60,6 +60,6 @@ export default function Login({ setToken }) {
   );
 }
 
-Login.propTypes = {
-  setToken: PropTypes.func.isRequired,
-};
+// Login.propTypes = {
+//   setToken: PropTypes.func.isRequired,
+// };

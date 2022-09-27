@@ -8,16 +8,18 @@ import { TransactionDummy } from "./components/transactions/transactionDummy";
 import Footer from "./components/layout/Footer";
 import Headers from "./components/layout/Headers";
 import { Container } from "react-bootstrap";
+import ListApartement from "./components/PengelonaanApartement/ListApartement";
 
 function App() {
   const [token, setToken] = useState();
-  // console.log(token);
+
   if (token && token !== "undefined") {
     return (
       <>
         <Headers />
         <Provider store={appStore}>
-          <TransactionDummy token={token} />
+          {/* <TransactionDummy token={token} /> */}
+          <ListApartement />
         </Provider>
         <Footer />
       </>
