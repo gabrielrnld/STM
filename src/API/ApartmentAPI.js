@@ -1,7 +1,14 @@
 const apiApartmentsURL = "api/units";
 
 export async function getAllApartments() {
-  const response = await fetch(apiApartmentsURL);
+  const response = await fetch(apiApartmentsURL, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("authorization"),
+    },
+    method: "GET",
+  });
 
   return response.json();
 }
@@ -25,6 +32,7 @@ export async function deleteApartments(unit) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      Authorization: localStorage.getItem("authorization"),
     },
     method: "DELETE",
     // body: JSON.stringify(guest),
@@ -38,6 +46,7 @@ export async function updateApartments(unit) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      Authorization: localStorage.getItem("authorization"),
     },
     method: "PUT",
     body: JSON.stringify(unit),

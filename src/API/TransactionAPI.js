@@ -17,6 +17,7 @@ export async function createTransactions(trx) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      Authorization: localStorage.getItem("authorization"),
     },
     method: "POST",
     body: JSON.stringify(trx),
@@ -30,6 +31,7 @@ export async function deleteTransactions(trx) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      Authorization: localStorage.getItem("authorization"),
     },
     method: "DELETE",
     // body: JSON.stringify(guest),
@@ -43,6 +45,7 @@ export async function updateTransactions(trx) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      Authorization: localStorage.getItem("authorization"),
     },
     method: "PUT",
     body: JSON.stringify(trx),
