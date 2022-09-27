@@ -22,6 +22,14 @@ const routes = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "list-apartments",
+        element: <ListApartement />,
+      },
+      {
+        path: "apartment/:id",
+        element: <DetailApartement />,
+      },
+      {
         path: "transaksi",
         element: <Transaksi />,
       },

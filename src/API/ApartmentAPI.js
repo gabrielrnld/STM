@@ -13,6 +13,19 @@ export async function getAllApartments() {
   return response.json();
 }
 
+export async function getApartment(id) {
+  const response = await fetch(`${apiApartmentsURL}/${id}`, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("authorization"),
+    },
+    method: "GET",
+  });
+
+  return response.json();
+}
+
 export async function createApartments(unit) {
   const response = await fetch(apiApartmentsURL, {
     headers: {

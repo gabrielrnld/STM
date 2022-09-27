@@ -10,8 +10,6 @@ export function TransactionDummy() {
     dispatch(fetchTransactions());
   }, [dispatch]);
 
-  //   console.log(state.transactions);
-
   if (state.isLoading) {
     return <strong>Loading</strong>;
   } else if (!state.isLoading && !Array.isArray(state.transactions)) {
