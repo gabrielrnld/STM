@@ -1,5 +1,4 @@
 import React from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
 
 export default function Footer() {
   return (
@@ -8,7 +7,7 @@ export default function Footer() {
         <span className="text-white ">
           <span> &copy; 2022 </span>
           <a className="text-white text-decoration-none" href="https://enigmacamp.com">
-            Enigma Camp
+            STM Apartment Company
           </a>
         </span>
       </div>

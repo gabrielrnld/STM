@@ -12,18 +12,26 @@ export default function Login() {
           </div>
           <div className="col-lg-3 bg-orange img-round">
             <Form className="mt-5 mb-5">
-              <h2>Login</h2>
+              <h2 className="mb-3">Login</h2>
               <Form.Group className="mb-3">
                 <Form.Label>Username</Form.Label>
-                <Form.Control type="text" placeholder="Input username" />
+                <Form.Control
+                  type="text"
+                  placeholder="Input username"
+                  className="title-fs"
+                />
               </Form.Group>
               <Form.Group>
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Input your password" />
+                <Form.Control
+                  type="password"
+                  placeholder="Input your password"
+                  className="title-fs"
+                />
               </Form.Group>
               <div className="d-flex justify-content-end mt-2">
-                <button className="btn btn-orange mx-2">Cancel</button>
-                <button className="btn btn-cancel" type="submit">
+                <button className="btn btn-orange btn-fs mx-2">Cancel</button>
+                <button className="btn btn-cancel btn-fs" type="submit">
                   Login
                 </button>
               </div>

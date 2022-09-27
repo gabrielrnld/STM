@@ -1,3 +1,7 @@
+* {
+  font-size: 1.5rem;
+}
+
 .App {
   text-align: center;
 }
@@ -58,4 +62,9 @@
 
 .img-round {
   border-radius: 8px;
+}
+
+.btn-fs,
+.title-fs {
+  font-size: 1.5rem;
 }
