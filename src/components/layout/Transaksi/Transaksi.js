@@ -41,5 +41,5 @@ export function Transaksi(props) {
       observer.disconnect();
     };
   }, []);
-  return page === "list" ? <ListTransaksi /> : <></>;
+  return page === "list" ? <ListTransaksi setPage={setPage} /> : <></>;
 }

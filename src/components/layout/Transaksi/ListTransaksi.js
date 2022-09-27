@@ -5,6 +5,7 @@ import filterFactory, {
   textFilter,
 } from "react-bootstrap-table2-filter";
 import { AiFillEdit } from "react-icons/ai";
+import { MdOutlineAddCircle } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import BootstrapTable from "react-bootstrap-table-next";
 import { useState } from "react";
@@ -87,7 +88,13 @@ export function ListTransaksi(props) {
       text: "Action",
       formatter: (cell, row) => {
         return (
-          <Button onClick={() => setTrx(row)} variant="outline-dark">
+          <Button
+            onClick={() => {
+              setTrx(row);
+              props.setPage("form");
+            }}
+            variant="outline-dark"
+          >
             <AiFillEdit />
           </Button>
         );
@@ -96,6 +103,15 @@ export function ListTransaksi(props) {
   ];
   return (
     <div className="container align-items-center col-xxl-8 px-4 py-5">
+      <Button
+        className="m-2"
+        style={{ backgroundColor: "#eeaa7a", color: "black" }}
+        size="medium"
+        onClick={() => props.setPage("form")}
+      >
+        <MdOutlineAddCircle size="12px" />
+        &nbsp; Tambah Data
+      </Button>
       <section className="fadedTable" style={{ alignContent: "flex-start" }}>
         <h2 className="m-5">
           <b>Data Transaksi</b>
