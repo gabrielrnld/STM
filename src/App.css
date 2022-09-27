@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+
+.bg-orange {
+  background: #f58534;
+}
+
+.btn-orange {
+  background: #f58534;
+  color: white;
+}
+
+.btn-cancel {
+  background: white;
+  color: #282c34;
+}
+
+.color-primary {
+  background: #f58534;
+  color: white;
+}
+
+.img-round {
+  border-radius: 8px;
+}
