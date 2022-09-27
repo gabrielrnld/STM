@@ -15,24 +15,24 @@ export const fetchResidents = createAsyncThunk("residents/getAll", async () => {
 
 export const createResidents = createAsyncThunk(
   "residents/create",
-  async () => {
-    const residents = await ResidentAPI.createResidents();
+  async (resident) => {
+    const residents = await ResidentAPI.createResidents(resident);
     return residents;
   }
 );
 
 export const updateResidents = createAsyncThunk(
   "residents/update",
-  async () => {
-    const residents = await ResidentAPI.updateResidents();
+  async (resident) => {
+    const residents = await ResidentAPI.updateResidents(resident);
     return residents;
   }
 );
 
 export const deleteResidents = createAsyncThunk(
   "residents/delete",
-  async () => {
-    const residents = await ResidentAPI.deleteResidents();
+  async (resident) => {
+    const residents = await ResidentAPI.deleteResidents(resident);
     return residents;
   }
 );

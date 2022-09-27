@@ -1,4 +1,4 @@
-const apiResidentsURL = "http://localhost:3344/residents";
+const apiResidentsURL = "api/residents";
 
 export async function getAllResidents() {
   const response = await fetch(apiResidentsURL);

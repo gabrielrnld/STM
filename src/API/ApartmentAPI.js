@@ -1,4 +1,4 @@
-const apiApartmentsURL = "http://localhost:3344/units";
+const apiApartmentsURL = "api/units";
 
 export async function getAllApartments() {
   const response = await fetch(apiApartmentsURL);
@@ -11,6 +11,7 @@ export async function createApartments(unit) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      Authorization: localStorage.getItem("authorization"),
     },
     method: "POST",
     body: JSON.stringify(unit),
