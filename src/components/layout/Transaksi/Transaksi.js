@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import BootstrapTable from "react-bootstrap-table-next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Col, Row, Table } from "react-bootstrap";
 import { units, residents, transactions } from "./Data";
 import filterFactory, {
@@ -29,6 +29,24 @@ export function Transaksi(props) {
   //   // trx.resident = residents.find((x) => (x.id = trx.residentId));
   //   return { ...trx, ...unit, ...resident, id };
   // });
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("showTable");
+        } else {
+          entry.target.classList.remove("showTable");
+        }
+      });
+    });
+    const hiddenElement = document.querySelectorAll(".fadedTable");
+    hiddenElement.forEach((el) => observer.observe(el));
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   const data = transactions.map((trx) => {
     trx.unit = units.find((x) => (x.id = trx.unitId));
@@ -98,7 +116,7 @@ export function Transaksi(props) {
       dataField: "period",
       text: "Period",
       formatter: (cell) => {
-        return `${cell} months`;
+        return `${cell ? cell : 0} months`;
       },
     },
     {
@@ -107,11 +125,19 @@ export function Transaksi(props) {
     },
   ];
   return (
-    <BootstrapTable
-      keyField="id"
-      data={data}
-      columns={columns}
-      filter={filterFactory()}
-    />
+    <div className="container align-items-center col-xxl-8 px-4 py-5">
+      <section className="fadedTable" style={{ alignContent: "flex-start" }}>
+        <h2 className="m-5">Data Transaksi</h2>
+        <BootstrapTable
+          keyField="id"
+          striped
+          hover
+          data={data}
+          columns={columns}
+          filter={filterFactory()}
+          rowStyle={{ backgroundColor: "whitesmoke" }}
+        />
+      </section>
+    </div>
   );
 }
