@@ -36,3 +36,73 @@
     transform: rotate(360deg);
   }
 }
+
+.bg-orange {
+  background: #f58534;
+}
+
+.btn-orange {
+  background: #f58534;
+  color: white;
+}
+
+.btn-cancel {
+  background: white;
+  color: #282c34;
+}
+
+.color-primary {
+  background: #f58534;
+  color: white;
+}
+
+.img-round {
+  border-radius: 8px;
+}
+
+section {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  min-height: 100vh
+}
+
+ .faded{
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateX(-100%);
+  transition: all 1s;
+} 
+
+.show {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateX(0);
+}
+
+.fadein2{
+  transition-delay: 200ms;
+}
+
+.fadein3{
+  transition-delay: 400ms;
+}
+
+
+.fadedTable{
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateY(-20%);
+  transition: all 1s;
+} 
+
+.showTable{
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+  transition-delay: 100ms;
+}
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+  background-color: #eeaa7a;
+}

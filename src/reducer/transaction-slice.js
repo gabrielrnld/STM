@@ -12,30 +12,31 @@ export const fetchTransactions = createAsyncThunk(
   "transactions/getAll",
   async () => {
     const transactions = await TransactionsAPI.getAllTransactions();
+    console.log(transactions);
     return transactions;
   }
 );
 
 export const createTransactions = createAsyncThunk(
   "transactions/create",
-  async () => {
-    const transactions = await TransactionsAPI.createTransactions;
+  async (trx) => {
+    const transactions = await TransactionsAPI.createTransactions(trx);
     return transactions;
   }
 );
 
 export const updateTransactions = createAsyncThunk(
   "transactions/update",
-  async () => {
-    const transactions = await TransactionsAPI.updateTransactions();
+  async (trx) => {
+    const transactions = await TransactionsAPI.updateTransactions(trx);
     return transactions;
   }
 );
 
 export const deleteTransactions = createAsyncThunk(
   "transactions/delete",
-  async () => {
-    const transactions = await TransactionsAPI.deleteTransactions();
+  async (trx) => {
+    const transactions = await TransactionsAPI.deleteTransactions(trx);
     return transactions;
   }
 );
@@ -50,7 +51,7 @@ export const TransactionsSlice = createSlice({
       })
       .addCase(fetchTransactions.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.units = action.payload;
+        state.transactions = action.payload;
       })
       .addCase(createTransactions.fulfilled, (state) => {
         state.isLoading = false;

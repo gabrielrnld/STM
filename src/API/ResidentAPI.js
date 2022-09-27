@@ -1,7 +1,14 @@
-const apiResidentsURL = "http://localhost:3344/residents";
+const apiResidentsURL = "api/residents";
 
 export async function getAllResidents() {
-  const response = await fetch(apiResidentsURL);
+  const response = await fetch(apiResidentsURL, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("authorization"),
+    },
+    method: "GET",
+  });
 
   return response.json();
 }
@@ -11,6 +18,7 @@ export async function createResidents(resident) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      Authorization: localStorage.getItem("authorization"),
     },
     method: "POST",
     body: JSON.stringify(resident),
@@ -24,6 +32,7 @@ export async function deleteResidents(resident) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      Authorization: localStorage.getItem("authorization"),
     },
     method: "DELETE",
     // body: JSON.stringify(guest),
@@ -37,6 +46,7 @@ export async function updateResidents(resident) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      Authorization: localStorage.getItem("authorization"),
     },
     method: "PUT",
     body: JSON.stringify(resident),

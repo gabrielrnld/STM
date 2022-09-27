@@ -16,26 +16,31 @@ export const fetchApartments = createAsyncThunk(
   }
 );
 
+export const fetchApartment = createAsyncThunk("apartment/id", async (id) => {
+  const apartment = await ApartmentAPI.getApartment(id);
+  return apartment;
+});
+
 export const createApartments = createAsyncThunk(
   "apartment/create",
-  async () => {
-    const apartments = await ApartmentAPI.createApartments();
+  async (resident) => {
+    const apartments = await ApartmentAPI.createApartments(resident);
     return apartments;
   }
 );
 
 export const updateApartments = createAsyncThunk(
   "apartment/update",
-  async () => {
-    const apartments = await ApartmentAPI.updateApartments();
+  async (resident) => {
+    const apartments = await ApartmentAPI.updateApartments(resident);
     return apartments;
   }
 );
 
 export const deleteApartments = createAsyncThunk(
   "apartment/delete",
-  async () => {
-    const apartments = await ApartmentAPI.deleteApartments();
+  async (resident) => {
+    const apartments = await ApartmentAPI.deleteApartments(resident);
     return apartments;
   }
 );
@@ -49,6 +54,13 @@ export const ApartmentSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchApartments.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.units = action.payload;
+      })
+      .addCase(fetchApartment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchApartment.fulfilled, (state, action) => {
         state.isLoading = false;
         state.units = action.payload;
       })
