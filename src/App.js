@@ -1,6 +1,4 @@
-import logo from "./logo.svg";
-import "./App.css";
-import { Transaksi } from "./components/layout/Transaksi/Transaksi";
+import ListApartement from "./components/PengelonaanApartement/ListApartement";
 
 function App() {
   return <Transaksi />;
