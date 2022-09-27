@@ -11,19 +11,21 @@ import Headers from "./components/layout/Headers";
 function App() {
   const [token, setToken] = useState();
 
-  if (!token) {
-    return (
-      <Provider store={appStore}>
-        <Login setToken={setToken} />;
-      </Provider>
-    );
-  }
+  // if (!token) {
+  //   return (
+  //     <Provider store={appStore}>
+  //       <Login setToken={setToken} />;
+  //     </Provider>
+  //   );
+  // }
 
   return (
     <>
+      <Headers />
       <Provider store={appStore}>
-        <TransactionDummy token={token} />
+        <Outlet />
       </Provider>
+      <Footer />
     </>
   );
 }
