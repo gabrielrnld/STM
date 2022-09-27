@@ -18,24 +18,24 @@ export const fetchApartments = createAsyncThunk(
 
 export const createApartments = createAsyncThunk(
   "apartment/create",
-  async () => {
-    const apartments = await ApartmentAPI.createApartments();
+  async (resident) => {
+    const apartments = await ApartmentAPI.createApartments(resident);
     return apartments;
   }
 );
 
 export const updateApartments = createAsyncThunk(
   "apartment/update",
-  async () => {
-    const apartments = await ApartmentAPI.updateApartments();
+  async (resident) => {
+    const apartments = await ApartmentAPI.updateApartments(resident);
     return apartments;
   }
 );
 
 export const deleteApartments = createAsyncThunk(
   "apartment/delete",
-  async () => {
-    const apartments = await ApartmentAPI.deleteApartments();
+  async (resident) => {
+    const apartments = await ApartmentAPI.deleteApartments(resident);
     return apartments;
   }
 );
