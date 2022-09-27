@@ -15,7 +15,7 @@ export default function Headers() {
     <>
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand as={Link} to="home">
+          <Navbar.Brand as={Link} to="home" className="title-fs fw-bold">
             STM Apartment
           </Navbar.Brand>
           <Navbar.Collapse className="justify-content-end">
