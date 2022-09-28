@@ -3,6 +3,7 @@ import App from "../App";
 import Home from "../components/home/Home";
 import { Transaksi } from "../components/layout/Transaksi/Transaksi";
 import Login from "../components/login/Login";
+import ListApartement from "../components/PengelonaanApartement/ListApartement";
 
 const routes = createBrowserRouter([
   {
@@ -24,10 +25,6 @@ const routes = createBrowserRouter([
       {
         path: "list-apartments",
         element: <ListApartement />,
-      },
-      {
-        path: "apartment/:id",
-        element: <DetailApartement />,
       },
       {
         path: "transaksi",

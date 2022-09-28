@@ -3,7 +3,7 @@ import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 
 export function FormManageLaporan(props) {
-const { openPage, selectedReport } = props;
+  const { openPage, selectedReport } = props;
   const [formData, setFormData] = useState({
     id: selectedReport?.id || "",
     floor: selectedReport?.floor || "",
@@ -15,45 +15,43 @@ const { openPage, selectedReport } = props;
     details: selectedReport?.details || "",
   });
   const dispatch = useDispatch();
- 
 
   const resetForm = () => {
     setFormData({
-    id: selectedReport?.id || "",
-    floor: selectedReport?.floor || "",
-    unit: selectedReport?.unit || "",
-    status: selectedReport?.status || "",
-    price: selectedReport?.price || "",
-    rentalprice: selectedReport?.rentalprice || "",
-    rentalschema: selectedReport?.rentalschema || "",
-    details: selectedReport?.details || "",
-    })
+      id: selectedReport?.id || "",
+      floor: selectedReport?.floor || "",
+      unit: selectedReport?.unit || "",
+      status: selectedReport?.status || "",
+      price: selectedReport?.price || "",
+      rentalprice: selectedReport?.rentalprice || "",
+      rentalschema: selectedReport?.rentalschema || "",
+      details: selectedReport?.details || "",
+    });
   };
 
   const handleValueChange = (fieldName, field) => {
     const fields = Object.keys(formData);
 
     if (fields.includes(fieldName)) {
-        setFormData({
-            ...formData,
-            [fieldName]: field.target.value,
-        });
+      setFormData({
+        ...formData,
+        [fieldName]: field.target.value,
+      });
     }
-  }
+  };
 
   const handleFormSubmit = (form) => {
     form.preventDefault();
+  };
 
-  }
+  //     if (selectedReport) {
+  //       dispatch(updateReport(formData));
+  //     } else {
+  //       dispatch(createReport(formData));
+  //     }
 
-//     if (selectedReport) {
-//       dispatch(updateReport(formData));
-//     } else {
-//       dispatch(createReport(formData));
-//     }
-
-//     openPage("list");
-//   };
+  //     openPage("list");
+  //   };
 
   return (
     <Row as="section" className="d-flex justify-content-center">
@@ -91,18 +89,21 @@ const { openPage, selectedReport } = props;
                 </Col>
               </Form.Group>
               <Form.Group as={Row} className="mb-3">
-                <Form.Label  column sm="3">
-                    Status
+                <Form.Label column sm="3">
+                  Status
                 </Form.Label>
                 <Col sm="9">
-                <Form.Select htmlFor="status" onChange={(e) => handleValueChange("status", e)} value={formData.status}>
-                  <option>-</option>
-                  <option value="sold">Sold</option>
-                  <option value="rented">Rent</option>
-                </Form.Select>
+                  <Form.Select
+                    htmlFor="status"
+                    onChange={(e) => handleValueChange("status", e)}
+                    value={formData.status}
+                  >
+                    <option>-</option>
+                    <option value="sold">Sold</option>
+                    <option value="rented">Rent</option>
+                  </Form.Select>
                 </Col>
-                
-                
+
                 {/* <Col sm="9">
                   <Form.Control
                     id="status"
@@ -182,7 +183,6 @@ const { openPage, selectedReport } = props;
                 <Button variant="warning" onClick={() => openPage()}>
                   Back
                 </Button>
-                
               </Form.Group>
             </Card.Body>
           </Form>
