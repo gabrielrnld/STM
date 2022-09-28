@@ -47,7 +47,7 @@ export const ResidentsSlice = createSlice({
       })
       .addCase(fetchResidents.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.units = action.payload;
+        state.residents = action.payload;
       })
       .addCase(createResidents.fulfilled, (state) => {
         state.isLoading = false;
