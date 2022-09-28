@@ -1,19 +1,22 @@
-import React from "react";
-import { useState } from "react";
-import { Button, Form } from "react-bootstrap";
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { usersLogin } from "../../reducer/login-slice";
+import React from 'react';
+import { useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { usersLogin } from '../../reducer/login-slice';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login({ setToken }) {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  const navigate = useNavigate();
   const state = useSelector((storedState) => storedState.users);
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     dispatch(usersLogin({ username, password }));
-    setToken(localStorage.getItem("authorization"));
+    setToken(localStorage.getItem('authorization'));
+    navigate('/transaksi');
   };
 
   return (
@@ -21,9 +24,7 @@ export default function Login({ setToken }) {
       <div className="container col-xxl-8 px-4 py-5">
         <section className="row flex-lg-row-reserve align-items-center g-5 py-3">
           <div className="col-10 col-sm-8 col-lg-9 text-center">
-            <h1 className="display-5 fw-bold lh-1 mb-5">
-              System Management Room
-            </h1>
+            <h1 className="display-5 fw-bold lh-1 mb-5">System Management Room</h1>
             <img src="./bg-login.svg" width="600" alt="bg-login" />
           </div>
           <div className="col-lg-3 bg-orange img-round">
