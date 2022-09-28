@@ -8,16 +8,15 @@ import { AiFillEdit } from "react-icons/ai";
 import { MdOutlineAddCircle } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import BootstrapTable from "react-bootstrap-table-next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { fetchResidents } from "../../../reducer/resident-slice";
+import {
+  fetchApartment,
+  fetchApartments,
+} from "../../../reducer/apartment-slice";
+import { fetchTransactions } from "../../../reducer/transaction-slice";
 
 export function ListTransaksi(props) {
-  const [trx, setTrx] = useState({});
-  const data = transactions.map((trx) => {
-    trx.unit = units.find((x) => (x.id = trx.unitId));
-    trx.resident = residents.find((x) => (x.id = trx.residentId));
-    return trx;
-  });
-
   const columns = [
     {
       dataField: "id",
@@ -101,31 +100,62 @@ export function ListTransaksi(props) {
       },
     },
   ];
-  return (
-    <div className="container align-items-center col-xxl-8 px-4 py-5">
-      <Button
-        className="m-2"
-        style={{ backgroundColor: "#eeaa7a", color: "black" }}
-        size="medium"
-        onClick={() => props.setPage("form")}
-      >
-        <MdOutlineAddCircle size="12px" />
-        &nbsp; Tambah Data
-      </Button>
-      <section className="fadedTable" style={{ alignContent: "flex-start" }}>
-        <h2 className="m-5">
-          <b>Data Transaksi</b>
-        </h2>
-        <BootstrapTable
-          keyField="id"
-          striped
-          hover
-          data={data}
-          columns={columns}
-          filter={filterFactory()}
-          rowStyle={{ backgroundColor: "whitesmoke" }}
-        />
-      </section>
-    </div>
-  );
+  const [trx, setTrx] = useState({});
+
+  const state = useSelector((storedState) => storedState);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchResidents());
+    dispatch(fetchApartments());
+    dispatch(fetchTransactions());
+  }, [dispatch]);
+  let data = [];
+
+  // const { transactions } = { ...state };
+  let tranx = {
+    ...state,
+    transactions: { ...state.transactions },
+  };
+  data = tranx.transactions.transactions?.map((trx) => {
+    trx = {
+      ...trx,
+      unit: state.units.units.find((x) => x.id == trx.unitId),
+      resident: state.residents.residents.find((x) => x.id == trx.residentId),
+    };
+    return trx;
+  });
+
+  if (transactions.isLoading) {
+    return <p>Loading guest..</p>;
+  } else if (!transactions.isLoading && !Array.isArray(data)) {
+    return <p>Data tidak ada </p>;
+  } else {
+    return (
+      <div className="container align-items-center col-xxl-8 px-4 py-5">
+        <Button
+          className="m-2"
+          style={{ backgroundColor: "#eeaa7a", color: "black" }}
+          size="medium"
+          onClick={() => props.setPage("form")}
+        >
+          <MdOutlineAddCircle size="12px" />
+          &nbsp; Tambah Data
+        </Button>
+        <section className="fadedTable" style={{ alignContent: "flex-start" }}>
+          <h2 className="m-5">
+            <b>Data Transaksi</b>
+          </h2>
+          <BootstrapTable
+            keyField="id"
+            striped
+            hover
+            data={data}
+            columns={columns}
+            filter={filterFactory()}
+            rowStyle={{ backgroundColor: "whitesmoke" }}
+          />
+        </section>
+      </div>
+    );
+  }
 }

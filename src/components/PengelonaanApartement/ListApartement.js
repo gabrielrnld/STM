@@ -9,48 +9,8 @@ import filterFactory, {
 } from "react-bootstrap-table2-filter";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchApartments } from "../../reducer/apartment-slice";
-
-// const varUnits = [
-//   {
-//     id: 1,
-//     unitCode: "10AA",
-//     floor: 10,
-//     rooms: 2,
-//     direction: 0,
-//     status: "available",
-//     balcony: true,
-//     furnished: true,
-//     rentPrice: 4000000,
-//     rentSchema: "monthly",
-//     sellPrice: 500000000,
-//   },
-//   {
-//     id: 2,
-//     unitCode: "10AB",
-//     floor: 10,
-//     rooms: 2,
-//     direction: 2,
-//     status: "available",
-//     balcony: false,
-//     furnished: false,
-//     rentPrice: 3500000,
-//     rentSchema: "monthly",
-//     sellPrice: 400000000,
-//   },
-//   {
-//     id: 3,
-//     unitCode: "10BA",
-//     floor: 10,
-//     rooms: 2,
-//     direction: 4,
-//     status: "sold",
-//     balcony: true,
-//     furnished: true,
-//     rentPrice: 5000000,
-//     rentSchema: "monthly",
-//     sellPrice: 500000000,
-//   },
-// ];
+import { fetchTransactions } from "../../reducer/transaction-slice";
+import { fetchResidents } from "../../reducer/resident-slice";
 
 const varTransactions = [
   {
@@ -98,32 +58,37 @@ const varResidents = [
 ];
 
 export default function ListApartement() {
-  const [page, setPage] = useState("list");
-  // const [units, setUnits] = useState([...varUnits]);
-  const [transactions, setTransactions] = useState([...varTransactions]);
-  const [residents, setResidents] = useState([...varResidents]);
+  const [modalShow, setModalShow] = useState(false);
 
   const [selected, setSelected] = useState(null);
 
-  const state = useSelector((data) => data.units);
+  const state = useSelector((data) => data);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchApartments());
+    dispatch(fetchTransactions());
+    dispatch(fetchResidents());
   }, [dispatch]);
 
-  const onSwitchPage = (unit) => {
-    const findTransaction = transactions.find((transaction) => {
+  const { units, transactions, residents } = state;
+
+  const handleDisplayModalDetail = (unit) => {
+    const findTransaction = transactions?.transactions?.find((transaction) => {
       return transaction.unitId === unit.id;
     });
+    console.log(residents);
+
     if (findTransaction) {
-      const findResident = residents.find((resident) => {
+      const findResident = residents?.residents?.find((resident) => {
         return resident.id === findTransaction.residentId;
       });
+
       setSelected({ unit, findResident });
     } else {
       setSelected(unit);
     }
-    setPage("detailList");
+    setModalShow(true);
   };
 
   const selectOptionsStatus = {
@@ -178,14 +143,22 @@ export default function ListApartement() {
       dataField: "data",
       text: "Action",
       formatter: (cell, row) => {
-        return <Button onClick={() => onSwitchPage(row)}>Tes</Button>;
+        return (
+          <div className="d-flex justify-content-evenly">
+            <Button onClick={() => handleDisplayModalDetail(row)}>
+              Detail
+            </Button>
+            <Button onClick={() => handleDisplayModalDetail(row)}>Edit</Button>
+            {/* <Button onClick={() => handleDisplayModal(row)}>Detail</Button> */}
+          </div>
+        );
       },
     },
   ];
 
   return (
     <Row>
-      {state.isloading ? (
+      {units.isloading ? (
         <Col>
           <Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
@@ -193,20 +166,19 @@ export default function ListApartement() {
         </Col>
       ) : (
         <Col>
-          {page === "list" ? (
-            <BootstrapTable
-              keyField="id"
-              data={state.units}
-              columns={columns}
-              filter={filterFactory()}
-            />
-          ) : (
-            <DetailApartement
-              switchToList={setPage}
-              selected={selected}
-              setSelected={setSelected}
-            />
-          )}
+          <BootstrapTable
+            keyField="id"
+            data={state.units.units}
+            columns={columns}
+            filter={filterFactory()}
+          />
+
+          <DetailApartement
+            modalShow={modalShow}
+            setModalShow={setModalShow}
+            selected={selected}
+            setSelected={setSelected}
+          />
         </Col>
       )}
     </Row>

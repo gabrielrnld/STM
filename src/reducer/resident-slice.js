@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as ResidentAPI from "../API/ResidentAPI";
 import { createSlice } from "@reduxjs/toolkit";
 import * as DataAPI from "../API/GetDataByUnitAPI";
+import { getResidentByUnitIdApi } from "../API/getDataApi";
 
 const initialState = {
   residents: [],
@@ -26,6 +27,22 @@ export const createResidents = createAsyncThunk(
   "residents/create",
   async (resident) => {
     const residents = await ResidentAPI.createResidents(resident);
+    return residents;
+  }
+);
+
+export const getResidentByUnitId = createAsyncThunk(
+  "resident/id",
+  async (getTrx) => {
+    const residents = await getResidentByUnitIdApi(getTrx);
+    return residents;
+  }
+);
+
+export const getTrxByUnitId = createAsyncThunk(
+  "transactions/unitId",
+  async (unitId) => {
+    const residents = await getResidentByUnitIdApi(unitId);
     return residents;
   }
 );
@@ -72,6 +89,7 @@ export const ResidentsSlice = createSlice({
       })
       .addCase(fetchResidentByUnitId.fulfilled, (state, action) => {
         state.isLoading = false;
+
       });
   },
 });

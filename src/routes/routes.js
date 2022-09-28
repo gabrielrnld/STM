@@ -6,6 +6,7 @@ import Login from "../components/login/Login";
 import ListApartement from "../components/PengelonaanApartement/ListApartement";
 import DetailApartement from "../components/PengelonaanApartement/DetailApartement";
 
+
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -26,10 +27,6 @@ const routes = createBrowserRouter([
       {
         path: "list-apartments",
         element: <ListApartement />,
-      },
-      {
-        path: "apartment/:id",
-        element: <DetailApartement />,
       },
       {
         path: "transaksi",
