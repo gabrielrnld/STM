@@ -1,32 +1,40 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import { Button, Modal, Row, Col } from "react-bootstrap";
 
 export default function DetailApartement(props) {
-  const { selected, switchToList, setSelected } = props;
+  const { selected, modalShow, setModalShow, setSelected } = props;
 
   console.log(selected);
-  const handleToListPage = () => {
-    switchToList("list");
+  const handleCloseModal = () => {
+    setModalShow(false);
     setSelected(null);
   };
 
   return (
-    <>
-      <Button onClick={handleToListPage}>Back</Button>
-      <ul>
-        <li>Furnished : {selected.unit?.furnished ? `Yes` : `No`}</li>
-        <li>Balcony : {selected.unit?.balcony ? `Yes` : `No`}</li>
-        <li>
-          Resident :{" "}
-          {selected.findResident
-            ? `${selected.findResident.fullname} | | ${selected.unit.id} | ${selected.unit.floor} | ${selected.unit.unitCode} | ${selected.unit.status} | IDR
-          ${selected.unit.sellPrice} | IDR ${selected.unit.rentPrice} | ${selected.unit.rentSchema} | - Rooms: ${selected.unit.rooms}`
-            : `(none)`}
-        </li>
-        <li>
-          <Button>Manage</Button>
-        </li>
-      </ul>
-    </>
+    <Modal
+      show={modalShow}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Detail Apartment {selected?.unitCode}
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <ul>
+          <li>Furnished : {selected?.furnished ? `Yes` : `No`}</li>
+          <li>Balcony : {selected?.balcony ? `Yes` : `No`}</li>
+          <li>Rooms : {selected?.rooms}</li>
+          <li>Rent Scheme : {selected?.rentSchema}</li>
+          <li>Rent Price : {selected?.rentPrice}</li>
+          <li>Sell Price : {selected?.sellPrice} </li>
+        </ul>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={handleCloseModal}>Close</Button>
+      </Modal.Footer>
+    </Modal>
   );
 }

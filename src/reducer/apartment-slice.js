@@ -16,11 +16,6 @@ export const fetchApartments = createAsyncThunk(
   }
 );
 
-export const fetchApartment = createAsyncThunk("apartment/id", async (id) => {
-  const apartment = await ApartmentAPI.getApartment(id);
-  return apartment;
-});
-
 export const createApartments = createAsyncThunk(
   "apartment/create",
   async (resident) => {
@@ -57,13 +52,7 @@ export const ApartmentSlice = createSlice({
         state.isLoading = false;
         state.units = action.payload;
       })
-      .addCase(fetchApartment.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(fetchApartment.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.units = action.payload;
-      })
+
       .addCase(createApartments.fulfilled, (state) => {
         state.isLoading = false;
         state.actions = new Date().getTime();

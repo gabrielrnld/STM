@@ -12,7 +12,6 @@ export const fetchTransactions = createAsyncThunk(
   "transactions/getAll",
   async () => {
     const transactions = await TransactionsAPI.getAllTransactions();
-    console.log(transactions);
     return transactions;
   }
 );
