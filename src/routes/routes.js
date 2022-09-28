@@ -4,6 +4,8 @@ import Home from "../components/home/Home";
 import { Transaksi } from "../components/layout/Transaksi/Transaksi";
 import Login from "../components/login/Login";
 import ListApartement from "../components/PengelonaanApartement/ListApartement";
+import DetailApartement from "../components/PengelonaanApartement/DetailApartement";
+
 
 const routes = createBrowserRouter([
   {

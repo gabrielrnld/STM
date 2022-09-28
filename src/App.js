@@ -1,3 +1,4 @@
+
 import { Outlet } from 'react-router-dom';
 import './App.css';
 import Login from './components/login/Login';
@@ -11,7 +12,8 @@ import { Container } from 'react-bootstrap';
 import ListApartement from './components/PengelonaanApartement/ListApartement';
 
 function App() {
-  const [token, setToken] = useState();
+  // const [token, setToken] = useState();
+
 
   useEffect(() => {
     setToken(localStorage.getItem('authorization'));
